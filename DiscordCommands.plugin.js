@@ -3,7 +3,7 @@
 
 const config = {
 	info: {
-			name: "DiscordCommans",
+			name: "DiscordCommands",
 			authors: [
 					{
 							name: "Akulenok",
