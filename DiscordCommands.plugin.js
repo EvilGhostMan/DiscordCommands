@@ -3,7 +3,7 @@
 
 const config = {
 	info: {
-			name: "DiscordCommands",
+			name: "DiscordCommans",
 			authors: [
 					{
 							name: "Akulenok",
@@ -33,28 +33,24 @@ class DiscordCommands {
 	getAuthor() { return "Akulenok"; }
 
 	initialize() {
-		this.initialized = true;
-		PluginUtilities.showToast(this.getName() + " " + this.getVersion() + " has started.");
-}
-
-start() {
-	var libraryScript = document.getElementById('zeresLibraryScript');
-	if (!libraryScript) {
-		libraryScript = document.createElement("script");
-		libraryScript.setAttribute("type", "text/javascript");
-		libraryScript.setAttribute("src", "https://rauenzi.github.io/BetterDiscordAddons/Plugins/PluginLibrary.js");
-		libraryScript.setAttribute("id", "zeresLibraryScript");
-			document.head.appendChild(libraryScript);
+		
 	}
 
+start() {
+	var libraryScript = document.querySelector('head script#BDFDBLibraryScript');
+		if (!libraryScript || (performance.now() - libraryScript.getAttribute("date")) > 600000) {
+			if (libraryScript) libraryScript.remove();
+			libraryScript = document.createElement("script");
+			libraryScript.setAttribute("id", "BDFDBLibraryScript");
+			libraryScript.setAttribute("type", "text/javascript");
+			libraryScript.setAttribute("src", "https://mwittrien.github.io/BetterDiscordAddons/Plugins/BDFDB.min.js");
+			libraryScript.setAttribute("date", performance.now());
+			libraryScript.addEventListener("load", _ => {this.initialize();});
+			document.head.appendChild(libraryScript);
+		}
 }
 
 	stop() {
-		if (window.BDFDB && typeof BDFDB === "object" && BDFDB.loaded) {
-				this.stopping = true;
-
-				BDFDB.ModuleUtils.forceAllUpdates(this);
-				BDFDB.PluginUtils.clear(this);
-		}
+		
 }
 }
