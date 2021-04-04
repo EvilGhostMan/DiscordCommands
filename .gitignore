@@ -1,0 +1,5 @@
+# Generated files
+node_modules
+release
+plugins
+/config.json
