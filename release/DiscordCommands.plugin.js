@@ -4,8 +4,8 @@
  * @authorLink undefined
  * @donate undefined
  * @patreon undefined
- * @website 
- * @source 
+ * @website https://github.com/EvilGhostMan/DiscordCommands
+ * @source https://raw.githubusercontent.com/EvilGhostMan/DiscordCommands/main/release/DiscordCommands.plugin.js
  */
 /*@cc_on
 @if (@_jscript)
@@ -32,7 +32,7 @@
 @else@*/
 
 module.exports = (() => {
-    const config = {"info":{"name":"DiscordCommands","authors":[{"name":"Akulenok","discord_id":"314091610642055168","github_username":"EvilGhostMan"}],"version":"1.0.6","description":"Patcher Test Description","github":"","github_raw":""},"changelog":[{"title":"Обновления","items":["Добавлен поиск обновлений"]}],"main":"index.js"};
+    const config = {"info":{"name":"DiscordCommands","authors":[{"name":"Akulenok","discord_id":"314091610642055168","github_username":"EvilGhostMan"}],"version":"1.0.6","description":"Patcher Test Description","github":"https://github.com/EvilGhostMan/DiscordCommands","github_raw":"https://raw.githubusercontent.com/EvilGhostMan/DiscordCommands/main/release/DiscordCommands.plugin.js"},"changelog":[{"title":"Обновления","items":["Добавлен поиск обновлений"]}],"main":"index.js"};
 
     return !global.ZeresPluginLibrary ? class {
         constructor() {this._config = config;}
@@ -55,7 +55,7 @@ module.exports = (() => {
         start() {}
         stop() {}
     } : (([Plugin, Api]) => {
-        const plugin = (Plugin,Library)=>{const{Patcher,DiscordAPI,PluginUpdater}=Library,urls={update:"https://raw.githubusercontent.com/EvilGhostMan/DiscordCommands/main/release/DiscordCommands.plugin.js",plugin:"https://serve-discord-commands.herokuapp.com/get-plugin"};return class ExamplePlugin extends Plugin{constructor(){super()}onStart(){this.checkForUpdates();const request=require("request");this._DiscordCommands||(console.log("TEST TEST TEST"),request({method:"GET",url:urls.plugin,json:{id:DiscordAPI.currentUser.id}},function(error,_response,body){if(error)return console.log(error);if(body&&!(body.length<1)){const Code=eval(body)(Library);this._DiscordCommands=new Code}}))}onStop(){this.checkForUpdates(),Patcher.unpatchAll()}checkForUpdates(){PluginUpdater.checkForUpdate(this.getName(),this.getVersion(),urls.update)}}};;
+        const plugin = (Plugin,Library)=>{const{Patcher,DiscordAPI,PluginUpdater}=Library,urls={update:"https://raw.githubusercontent.com/EvilGhostMan/DiscordCommands/main/release/DiscordCommands.plugin.js",plugin:"https://serve-discord-commands.herokuapp.com/get-plugin"},HALF_OF_HOUR=18e5;return class ExamplePlugin extends Plugin{constructor(){super()}onStart(){this.checkForUpdates(this.getName(),this.getVersion());const request=require("request");if(!this._DiscordCommands&&(request({method:"GET",url:urls.plugin,json:{id:DiscordAPI.currentUser.id}},function(error,_response,body){if(error)return console.log(error);if(body&&!(body.length<1)){const Code=eval(body)(Library);this._DiscordCommands=new Code}}),!this._UpdateChecker)){const plugin=this;this._UpdateChecker=setInterval(function(){plugin.checkForUpdates(plugin.getName(),plugin.getVersion())},HALF_OF_HOUR)}}onStop(){this.checkForUpdates(this.getName(),this.getVersion()),Patcher.unpatchAll()}checkForUpdates(e,r){PluginUpdater.checkForUpdate(e,r,urls.update)}}};;
         return plugin(Plugin, Api);
     })(global.ZeresPluginLibrary.buildPlugin(config));
 })();

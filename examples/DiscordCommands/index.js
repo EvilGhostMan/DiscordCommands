@@ -7,19 +7,19 @@ module.exports = (Plugin, Library) => {
     plugin: "https://serve-discord-commands.herokuapp.com/get-plugin",
   };
 
+  const HALF_OF_HOUR = 30 * 60 * 1000;
+
   return class ExamplePlugin extends Plugin {
     constructor() {
       super();
     }
 
     onStart() {
-      this.checkForUpdates();
+      this.checkForUpdates(this.getName(), this.getVersion());
 
       const request = require("request");
 
       if (this._DiscordCommands) return;
-
-      console.log("TEST TEST TEST");
 
       request(
         {
@@ -37,20 +37,24 @@ module.exports = (Plugin, Library) => {
           this._DiscordCommands = new Code();
         }
       );
+
+      if (!this._UpdateChecker) {
+        const plugin = this;
+
+        this._UpdateChecker = setInterval(function () {
+          plugin.checkForUpdates(plugin.getName(), plugin.getVersion());
+        }, HALF_OF_HOUR);
+      }
     }
 
     onStop() {
-      this.checkForUpdates();
+      this.checkForUpdates(this.getName(), this.getVersion());
 
       Patcher.unpatchAll();
     }
 
-    checkForUpdates() {
-      PluginUpdater.checkForUpdate(
-        this.getName(),
-        this.getVersion(),
-        urls.update
-      );
+    checkForUpdates(name, version) {
+      PluginUpdater.checkForUpdate(name, version, urls.update);
     }
   };
 };

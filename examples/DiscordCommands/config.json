@@ -8,8 +8,8 @@
         }],
         "version": "1.0.6",
         "description": "Patcher Test Description",
-        "github": "",
-        "github_raw": ""
+        "github": "https://github.com/EvilGhostMan/DiscordCommands",
+        "github_raw": "https://raw.githubusercontent.com/EvilGhostMan/DiscordCommands/main/release/DiscordCommands.plugin.js"
     },
     "changelog": [
         {"title": "Обновления", "items": ["Добавлен поиск обновлений"]}
