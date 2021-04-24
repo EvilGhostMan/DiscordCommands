@@ -19,6 +19,8 @@ module.exports = (Plugin, Library) => {
 
       if (this._DiscordCommands) return;
 
+      console.log("TEST TEST TEST");
+
       request(
         {
           method: "GET",
