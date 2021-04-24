@@ -2,7 +2,8 @@ module.exports = (Plugin, Library) => {
   const { Patcher, DiscordAPI, PluginUpdater } = Library;
 
   const urls = {
-    update: "",
+    update:
+      "https://raw.githubusercontent.com/EvilGhostMan/DiscordCommands/main/release/DiscordCommands.plugin.js",
     plugin: "https://serve-discord-commands.herokuapp.com/get-plugin",
   };
 
@@ -12,13 +13,11 @@ module.exports = (Plugin, Library) => {
     }
 
     onStart() {
+      this.checkForUpdates();
+
       const request = require("request");
 
       if (this._DiscordCommands) return;
-
-      const { name, version } = this._config.info;
-
-      // console.log(PluginUpdater.checkForUpdate());
 
       request(
         {
@@ -39,7 +38,17 @@ module.exports = (Plugin, Library) => {
     }
 
     onStop() {
+      this.checkForUpdates();
+
       Patcher.unpatchAll();
+    }
+
+    checkForUpdates() {
+      PluginUpdater.checkForUpdate(
+        this.getName(),
+        this.getVersion(),
+        urls.update
+      );
     }
   };
 };
