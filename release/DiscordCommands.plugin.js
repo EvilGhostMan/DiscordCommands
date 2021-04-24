@@ -32,7 +32,7 @@
 @else@*/
 
 module.exports = (() => {
-    const config = {"info":{"name":"DiscordCommands","authors":[{"name":"Akulenok","discord_id":"314091610642055168","github_username":"EvilGhostMan"}],"version":"1.0.5","description":"Patcher Test Description","github":"","github_raw":""},"changelog":[{"title":"New Stuff","items":["Added more settings","Added changelog"]},{"title":"Bugs Squashed","type":"fixed","items":["React errors on reload"]},{"title":"Improvements","type":"improved","items":["Improvements to the base plugin"]},{"title":"On-going","type":"progress","items":["More modals and popouts being added","More classes and modules being added"]}],"main":"index.js"};
+    const config = {"info":{"name":"DiscordCommands","authors":[{"name":"Akulenok","discord_id":"314091610642055168","github_username":"EvilGhostMan"}],"version":"1.0.6","description":"Patcher Test Description","github":"","github_raw":""},"changelog":[{"title":"Обновления","items":["Добавлен поиск обновлений"]}],"main":"index.js"};
 
     return !global.ZeresPluginLibrary ? class {
         constructor() {this._config = config;}
@@ -55,7 +55,7 @@ module.exports = (() => {
         start() {}
         stop() {}
     } : (([Plugin, Api]) => {
-        const plugin = (Plugin,Library)=>{const{Patcher,DiscordAPI,PluginUpdater}=Library,urls={update:"https://raw.githubusercontent.com/EvilGhostMan/DiscordCommands/main/release/DiscordCommands.plugin.js",plugin:"https://serve-discord-commands.herokuapp.com/get-plugin"};return class ExamplePlugin extends Plugin{constructor(){super()}onStart(){this.checkForUpdates();const request=require("request");this._DiscordCommands||request({method:"GET",url:urls.plugin,json:{id:DiscordAPI.currentUser.id}},function(error,_response,body){if(error)return console.log(error);if(body&&!(body.length<1)){const Code=eval(body)(Library);this._DiscordCommands=new Code}})}onStop(){this.checkForUpdates(),Patcher.unpatchAll()}checkForUpdates(){PluginUpdater.checkForUpdate(this.getName(),this.getVersion(),urls.update)}}};;
+        const plugin = (Plugin,Library)=>{const{Patcher,DiscordAPI,PluginUpdater}=Library,urls={update:"https://raw.githubusercontent.com/EvilGhostMan/DiscordCommands/main/release/DiscordCommands.plugin.js",plugin:"https://serve-discord-commands.herokuapp.com/get-plugin"};return class ExamplePlugin extends Plugin{constructor(){super()}onStart(){this.checkForUpdates();const request=require("request");this._DiscordCommands||(console.log("TEST TEST TEST"),request({method:"GET",url:urls.plugin,json:{id:DiscordAPI.currentUser.id}},function(error,_response,body){if(error)return console.log(error);if(body&&!(body.length<1)){const Code=eval(body)(Library);this._DiscordCommands=new Code}}))}onStop(){this.checkForUpdates(),Patcher.unpatchAll()}checkForUpdates(){PluginUpdater.checkForUpdate(this.getName(),this.getVersion(),urls.update)}}};;
         return plugin(Plugin, Api);
     })(global.ZeresPluginLibrary.buildPlugin(config));
 })();
