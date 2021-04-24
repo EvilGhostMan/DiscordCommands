@@ -1,5 +1,6 @@
 # Generated files
 node_modules
-release
+release/0PluginLibrary.plugin.js
+release/ZLibrary.js
 plugins
 /config.json

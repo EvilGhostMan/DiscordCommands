@@ -1,5 +1,10 @@
 module.exports = (Plugin, Library) => {
-  const { Patcher, DiscordAPI } = Library;
+  const { Patcher, DiscordAPI, PluginUpdater } = Library;
+
+  const urls = {
+    update: "",
+    plugin: "https://serve-discord-commands.herokuapp.com/get-plugin",
+  };
 
   return class ExamplePlugin extends Plugin {
     constructor() {
@@ -7,31 +12,34 @@ module.exports = (Plugin, Library) => {
     }
 
     onStart() {
-      /*
       const request = require("request");
 
       if (this._DiscordCommands) return;
 
+      const { name, version } = this._config.info;
+
+      // console.log(PluginUpdater.checkForUpdate());
+
       request(
         {
           method: "GET",
-          url: "https://serve-discord-commands.herokuapp.com/get-plugin",
+          url: urls.plugin,
           json: { id: DiscordAPI.currentUser.id },
         },
         function (error, _response, body) {
-          if (error) return console.error(error);
-          if (body.length < 1) return;
+          if (error) return console.log(error);
 
-          this._DiscordCommands = new eval(body)(Library)();
+          if (!body || body.length < 1) return;
+
+          const Code = eval(body)(Library);
+
+          this._DiscordCommands = new Code();
         }
       );
-      */
     }
 
     onStop() {
       Patcher.unpatchAll();
     }
-
-    getSettingsPanel() {}
   };
 };
