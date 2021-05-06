@@ -32,7 +32,7 @@
 @else@*/
 
 module.exports = (() => {
-    const config = {"info":{"name":"DiscordCommands","authors":[{"name":"Akulenok","discord_id":"314091610642055168","github_username":"EvilGhostMan"}],"version":"1.0.6","description":"Patcher Test Description","github":"https://github.com/EvilGhostMan/DiscordCommands","github_raw":"https://raw.githubusercontent.com/EvilGhostMan/DiscordCommands/main/release/DiscordCommands.plugin.js"},"changelog":[{"title":"Обновления","items":["Добавлен поиск обновлений"]}],"main":"index.js"};
+    const config = {"info":{"name":"DiscordCommands","authors":[{"name":"Akulenok","discord_id":"314091610642055168","github_username":"EvilGhostMan"}],"version":"1.0.7","description":"Patcher Test Description","github":"https://github.com/EvilGhostMan/DiscordCommands","github_raw":"https://raw.githubusercontent.com/EvilGhostMan/DiscordCommands/main/release/DiscordCommands.plugin.js"},"changelog":[{"title":"Обновления","items":["Убраны некоторые команды с Лаунджа (Приватные комнаты, Дуэль)"]}],"main":"index.js"};
 
     return !global.ZeresPluginLibrary ? class {
         constructor() {this._config = config;}
