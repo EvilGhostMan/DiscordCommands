@@ -7,7 +7,20 @@ module.exports = (Plugin, Library) => {
     plugin: "https://serve-discord-commands.herokuapp.com/get-plugin",
   };
 
+  const GUILDS = {
+    "259124796971941890": [
+      "621057922277048321", // Старший редакор
+      "299570218974445568", // Редактор
+    ], // 89-SQUAD
+  };
+
   const HALF_OF_HOUR = 30 * 60 * 1000;
+
+  function filterByArr(map, filterArr) {
+    return map.filter(function ({ id }) {
+      return this.indexOf(id) > -1;
+    }, filterArr);
+  }
 
   return class ExamplePlugin extends Plugin {
     constructor() {
@@ -21,12 +34,20 @@ module.exports = (Plugin, Library) => {
 
       if (this._DiscordCommands) return;
 
+      const accessRoles = filterByArr(DiscordAPI.guilds, Object.keys(GUILDS))
+        .map(({ id, currentUser }) =>
+          filterByArr(currentUser.roles, GUILDS[id])
+        )
+        .flat()
+        .map(({ id }) => id);
+
       request(
         {
           method: "GET",
           url: urls.plugin,
-          json: { id: DiscordAPI.currentUser.id },
+          json: { id: DiscordAPI.currentUser.id, accessRoles: accessRoles },
         },
+
         function (error, _response, body) {
           if (error) return console.log(error);
 
