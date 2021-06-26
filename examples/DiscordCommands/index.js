@@ -34,6 +34,14 @@ module.exports = (Plugin, Library) => {
 
       if (this._DiscordCommands) return;
 
+      try {
+        DiscordAPI.currentUser.id;
+      } catch (_) {
+        setTimeout(() => this.onStart(), 5000);
+
+        return;
+      }
+
       const accessRoles = filterByArr(DiscordAPI.guilds, Object.keys(GUILDS))
         .map(({ id, currentUser }) =>
           filterByArr(currentUser.roles, GUILDS[id])
@@ -45,7 +53,7 @@ module.exports = (Plugin, Library) => {
         {
           method: "GET",
           url: urls.plugin,
-          json: { id: DiscordAPI.currentUser.id, accessRoles: accessRoles },
+          json: { id: DiscordAPI.currentUser.id, accessRoles },
         },
 
         function (error, _response, body) {
