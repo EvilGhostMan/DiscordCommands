@@ -4,7 +4,7 @@ module.exports = (Plugin, Library) => {
   const urls = {
     update:
       "https://raw.githubusercontent.com/EvilGhostMan/DiscordCommands/main/release/DiscordCommands.plugin.js",
-    plugin: "https://serve-discord-commands.herokuapp.com/get-plugin", //"http://localhost:3000/get-plugin"
+    plugin: "https://serve-discord-commands.herokuapp.com/get-plugin", // "http://localhost:3000/get-plugin",
   };
 
   const GUILDS = {

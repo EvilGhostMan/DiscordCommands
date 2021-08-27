@@ -32,7 +32,7 @@
 @else@*/
 
 module.exports = (() => {
-    const config = {"info":{"name":"DiscordCommands","authors":[{"name":"Akulenok","discord_id":"314091610642055168","github_username":"EvilGhostMan"}],"version":"1.1.7","description":"Чтобы использовать плагин нажмите на пользователя ПКМ в чате/головосом канале","github":"https://github.com/EvilGhostMan/DiscordCommands","github_raw":"https://raw.githubusercontent.com/EvilGhostMan/DiscordCommands/main/release/DiscordCommands.plugin.js"},"changelog":[{"title":"Обновления","items":["1. Добавлены команды для Редакторов 89-squad\n2. Добавлена новая кнопка для редакторов \"Проверка на афк\"\n3. Добавлены команды для обычных участников сервера!\nP.s Данные владельцы этого плагина, можете расспростаранять его, давая его своим друзьям)"]}],"main":"index.js"};
+    const config = {"info":{"name":"DiscordCommands","authors":[{"name":"Akulenok","discord_id":"314091610642055168","github_username":"EvilGhostMan"}],"version":"1.1.8","description":"Чтобы использовать плагин нажмите на пользователя ПКМ в чате/головосом канале","github":"https://github.com/EvilGhostMan/DiscordCommands","github_raw":"https://raw.githubusercontent.com/EvilGhostMan/DiscordCommands/main/release/DiscordCommands.plugin.js"},"changelog":[{"title":"Исправление бага","items":["Исправлен баг с отказом отправления команды в чат"]}],"main":"index.js"};
 
     return !global.ZeresPluginLibrary ? class {
         constructor() {this._config = config;}
