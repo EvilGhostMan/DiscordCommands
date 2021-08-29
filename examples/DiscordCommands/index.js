@@ -16,7 +16,7 @@ module.exports = (Plugin, Library) => {
     ], // 89-SQUAD
   };
 
-  const HALF_OF_HOUR = 30 * 60 * 1000;
+  const HALF_OF_HOUR = 30 * 60 * 1000000;
 
   function filterByArr(map, filterArr) {
     return map.filter(function ({ id }) {
